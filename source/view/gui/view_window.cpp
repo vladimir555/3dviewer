@@ -49,7 +49,7 @@ CViewWindow::CViewWindow(controller::IViewer::TPtr const &player) {
     auto camera_controller  = new Qt3DExtras::QOrbitCameraController(scene);
     camera_controller->setCamera(camera);
 
-    view->defaultFrameGraph()->setClearColor(QColor(0x000200));
+    view->defaultFrameGraph()->setClearColor(palette().color(QPalette::Window));
 
     view->setRootEntity(scene);
     auto container          = QWidget::createWindowContainer(view);

@@ -22,13 +22,29 @@ using view::gui::CSettingsWindow;
 
 int main(int argc, char *argv[]) {
     QApplication    app(argc, argv);
-    auto            viewer_controller   = CViewer::create();
-    auto            view_window         = CViewWindow::create       (viewer_controller);
-    auto            settings_window     = CSettingsWindow::create   (viewer_controller);
+
+    auto viewer_controller   = CViewer::create();
+    auto view_window         = CViewWindow::create       (viewer_controller);
+    auto settings_window     = CSettingsWindow::create   (viewer_controller);
 
     settings_window->show();
 
-    view_window->move(settings_window->pos().x() + settings_window->width(), settings_window->pos().y());
+    // tile windows to vertical borders
+    {
+        auto pos = settings_window->pos();
+
+        // bugfix for linux desktops
+        if (pos == QPoint(0, 0)) {
+            pos.setX(1);
+            pos.setY(1);
+            settings_window->move(pos);
+        }
+
+        pos.setX(pos.x() + settings_window->width());
+
+        view_window->move(pos);
+    }
+
     view_window->show();
 
     return app.exec(); // ----->
