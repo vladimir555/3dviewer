@@ -18,7 +18,7 @@ public:
     CViewer() = default;
     virtual ~CViewer() = default;
 
-    void selectObjectType(model::TObjectType const &object_type) override;
+//    void selectObjectType(model::TObjectType const &object_type) override;
 };
 
 

@@ -9,9 +9,10 @@ namespace model {
 
 class ICylinder: public IObject {
 public:
-    virtual void setVerticesNumber(uint64_t const &count) = 0;
+    typedef QSharedPointer<ICylinder> TPtr;
+    virtual ~ICylinder() = default;
+    virtual void setVerticesNumber(size_t const &count) = 0;
 };
-
 
 
 } // model

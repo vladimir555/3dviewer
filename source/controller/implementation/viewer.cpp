@@ -4,9 +4,8 @@
 namespace controller::implementation {
 
 
-void CViewer::selectObjectType(model::TObjectType const &object_type) {
-    
-}
+//void CViewer::selectObjectType(model::TObjectType const &object_type) {
+//}
 
 
 } // controller::implementation

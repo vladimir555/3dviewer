@@ -14,7 +14,7 @@ public:
     typedef QSharedPointer<IViewer> TPtr;
     virtual ~IViewer() = default;
 
-    virtual void selectObjectType(model::TObjectType const &object_type) = 0;
+//    virtual void selectObjectType(model::TObjectType const &object_type) = 0;
 };
 
 
