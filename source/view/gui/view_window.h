@@ -6,7 +6,11 @@
 #include <QtOpenGLWidgets/QtOpenGLWidgets>
 #include <QMainWindow>
 #include <QTimer>
+#include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
+#include <Qt3DExtras/QCylinderMesh>
+#include <Qt3DExtras/QPhongMaterial>
+#include <QMutex>
 
 
 namespace view::gui {
@@ -20,7 +24,7 @@ public:
     static TPtr create(TArgs ... args) {
         return TPtr::create(args ...);
     }
-    
+
     CViewWindow();
     virtual ~CViewWindow() = default;
 
@@ -33,8 +37,18 @@ private:
 
     void onTimerTick();
 
-    Qt3DCore::QTransform   *m_object_transform = nullptr;
-    float                   m_angle = 0.0f;
+    void updateScene();
+
+    Qt3DCore::QTransform       *m_object_transform  = nullptr;
+    float                       m_angle             = 0.0f;
+
+    model::IScene::TRotationAxis
+                                m_rotation_axis;
+
+    model::IScene::TPtr         m_scene;
+    model::ICylinder::TPtr      m_cylinder;
+
+    QMutex                      m_mutex;
 };
 
 

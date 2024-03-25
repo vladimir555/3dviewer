@@ -9,11 +9,13 @@
 
 #include "view/settings.h"
 
+#include <QLabel>
+
 
 namespace view::gui {
 
 
-class ColorWidget: public QWidget {
+class ColorWidget: public QLabel {
     Q_OBJECT
 public:
     explicit ColorWidget(QColor color  = Qt::red, QWidget *parent = nullptr);

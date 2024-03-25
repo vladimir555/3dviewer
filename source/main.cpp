@@ -23,8 +23,8 @@ using controller::implementation::CScene;
 int main(int argc, char *argv[]) {
     QApplication    app(argc, argv);
 
-    auto settings_window     = CSettingsWindow::create();
     auto view_window         = CViewWindow::create();
+    auto settings_window     = CSettingsWindow::create();
 
     auto controller          = CScene::create
         (settings_window.get(), view_window.get());

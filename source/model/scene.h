@@ -13,10 +13,10 @@ public:
     virtual ~IScene() = default;
 
     enum class TRotationAxis {
-        UNKNOWN,
+        UNKNOWN = -1,
         X, Y, Z
     };
-    
+
     virtual TRotationAxis getRotationAxys() const = 0;
 };
 

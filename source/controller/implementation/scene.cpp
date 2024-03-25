@@ -1,15 +1,28 @@
 #include "scene.h"
 
 
+#include "view/gui/settings_window.h"
+#include "view/gui/view_window.h"
+
+
 namespace controller::implementation {
 
 
 CScene::CScene(view::ISettings *settings, view::IViewer *viewer) {
-//    QObject::connect(settings, &view::ISettings::onSceneUpdated, viewer, &view::IViewer::onSceneUpdated);
-//    connect(dynamic_cast<QObject*>(es), SIGNAL(someThingHappended()), ...);
     connect(
-        dynamic_cast<QObject *>(settings), SIGNAL(onSceneUpdated),
-        dynamic_cast<QObject *>(viewer)  , SLOT  (onSceneUpdated));
+        dynamic_cast<view::gui::CSettingsWindow *>(settings), &view::gui::CSettingsWindow::onSceneUpdated,
+        dynamic_cast<view::gui::CViewWindow     *>(viewer)  , &view::gui::CViewWindow::onSceneUpdated);
+
+    connect(
+        dynamic_cast<view::gui::CSettingsWindow *>(settings), &view::gui::CSettingsWindow::onCylinderUpdated,
+        dynamic_cast<view::gui::CViewWindow     *>(viewer)  , &view::gui::CViewWindow::onCylinderUpdated);
+
+//    connect(
+//        dynamic_cast<QObject *>(settings), SIGNAL(view:: onSceneUpdated),
+//        dynamic_cast<QObject *>(viewer)  , SLOT  (onSceneUpdated));
+//    connect(
+//        dynamic_cast<QObject *>(settings), SIGNAL(onCylinderUpdated),
+//        dynamic_cast<QObject *>(viewer)  , SLOT  (onCylinderUpdated));
 }
 
 

@@ -7,6 +7,12 @@ static size_t DEFAULT_VERTICES_COUNT_LIMIT = 100;
 namespace model::implementation {
 
 
+CCylinder::CCylinder()
+:
+    m_color(Qt::red)
+{}
+
+
 void CCylinder::setVerticesNumber(size_t const &vertices_number) {
     if (vertices_number > DEFAULT_VERTICES_COUNT_LIMIT)
         m_vertices_number = DEFAULT_VERTICES_COUNT_LIMIT;

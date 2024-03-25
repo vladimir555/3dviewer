@@ -14,7 +14,7 @@ public:
     static TPtr create(TArgs ... args) {
         return TPtr::create(args ...);
     }
-    CCylinder() = default;
+    CCylinder();
     virtual ~CCylinder() = default;
 
     void setVerticesNumber(size_t const &count);
@@ -24,7 +24,7 @@ public:
     QColor getColor()          const override;
 
 private:
-    size_t m_vertices_number = 0;
+    size_t m_vertices_number = 5;
     QColor m_color;
 };
 

@@ -14,7 +14,7 @@ public:
     static TPtr create(TArgs ... args) {
         return TPtr::create(args ...);
     }
-    CScene() = default;
+    CScene();
     virtual ~CScene() = default;
 
     void setRotationAxys(TRotationAxis const &rotation_axis);
