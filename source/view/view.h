@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include "model/scene.h"
 #include "model/cylinder.h"
 
 #include <QObject>

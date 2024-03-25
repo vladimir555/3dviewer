@@ -16,8 +16,13 @@ public:
     }
     CCylinder() = default;
     virtual ~CCylinder() = default;
-    void setVerticesNumber(size_t const &count) override;
-    void setColor(QColor const &color) override;
+
+    void setVerticesNumber(size_t const &count);
+    void setColor(QColor const &color);
+
+    size_t getVerticesNumber() const override;
+    QColor getColor()          const override;
+
 private:
     size_t m_vertices_number = 0;
     QColor m_color;

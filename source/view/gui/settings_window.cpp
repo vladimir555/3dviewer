@@ -28,6 +28,9 @@ static char const DEFAULT_COLOR_CHOOSING_FIELD_NAME[]   = "Color";
 static char const DEFAULT_AXIS_CHOOSING_FIELD_NAME[]    = "Rotation Axis";
 static char const DEFAULT_WINDOW_TITLE[]                = "Settings";
 static char const DEFAULT_WINDOW_COLOR_DIALOG_TITLE[]   = "Choose Color";
+static char const DEFAULT_NAME_AXIS_X[]                 = "Axis X";
+static char const DEFAULT_NAME_AXIS_Y[]                 = "Axis Y";
+static char const DEFAULT_NAME_AXIS_Z[]                 = "Axis Z";
 
 
 ColorWidget::ColorWidget(QColor color, QWidget *parent)
@@ -36,11 +39,6 @@ ColorWidget::ColorWidget(QColor color, QWidget *parent)
     m_color(color)
 {
     setBackgroundColor(color);
-}
-
-
-QColor ColorWidget::getBackgroundColor() const {
-    return m_color;
 }
 
 
@@ -63,11 +61,17 @@ void ColorWidget::setBackgroundColor(QColor const &color) {
     setStyleSheet(QString("background-color: %0; border-radius: 5px;").arg(color.name()));
 
     m_color = color;
+
+    emit onColorChanged(m_color);
 }
 
 
 
-CSettingsWindow::CSettingsWindow() {
+CSettingsWindow::CSettingsWindow()
+:
+    m_scene     (model::implementation::CScene::create()),
+    m_cylynder  (model::implementation::CCylinder::create())
+{
     // window font
     {
         QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
@@ -100,6 +104,8 @@ CSettingsWindow::CSettingsWindow() {
             spin_box->setValue(50);
 
             tree_widget->setItemWidget(tree_widget_item, 1, spin_box);
+
+            connect(spin_box, &QSpinBox::valueChanged, this, &CSettingsWindow::onSpinBoxValueChanged);
         }
 
         // color choosing
@@ -109,6 +115,8 @@ CSettingsWindow::CSettingsWindow() {
             ColorWidget     *color_widget       = new ColorWidget(Qt::green, tree_widget);
 
             tree_widget->setItemWidget(tree_widget_item, 1, color_widget);
+
+            connect(color_widget, &ColorWidget::onColorChanged, this, &CSettingsWindow::onColorChanged);
         }
 
         // axises
@@ -117,11 +125,13 @@ CSettingsWindow::CSettingsWindow() {
             tree_widget_item->setText(0, tr(DEFAULT_AXIS_CHOOSING_FIELD_NAME));
 
             QComboBox       *combo_box          = new QComboBox(tree_widget);
-            combo_box->addItem(tr("Axis X"), QVariant(0));
-            combo_box->addItem(tr("Axis Y"), QVariant(1));
-            combo_box->addItem(tr("Axis Z"), QVariant(2));
+            combo_box->addItem(tr(DEFAULT_NAME_AXIS_X), QVariant(1));
+            combo_box->addItem(tr(DEFAULT_NAME_AXIS_Y), QVariant(2));
+            combo_box->addItem(tr(DEFAULT_NAME_AXIS_Z), QVariant(3));
 
             tree_widget->setItemWidget(tree_widget_item, 1, combo_box);
+
+            connect(combo_box, &QComboBox::currentIndexChanged, this, &CSettingsWindow::onComboBoxIndexChanged);
         }
 
         // // align text to left
@@ -158,6 +168,25 @@ CSettingsWindow::CSettingsWindow() {
 void CSettingsWindow::closeEvent(QCloseEvent *event) {
     QCoreApplication::quit();
     QMainWindow::closeEvent(event);
+}
+
+
+void CSettingsWindow::onSpinBoxValueChanged(int const &value) {
+    m_cylynder->setVerticesNumber(value);
+    signal: onCylinderUpdated(m_cylynder);
+}
+
+
+void CSettingsWindow::onColorChanged(const QColor &color) {
+    m_cylynder->setColor(color);
+    signal: onCylinderUpdated(m_cylynder);
+}
+
+
+void CSettingsWindow::onComboBoxIndexChanged(int const &value) {
+    model::IScene::TRotationAxis rotation_axis = static_cast<model::IScene::TRotationAxis>(value);
+    m_scene->setRotationAxys(rotation_axis);
+    signal: onSceneUpdated(m_scene);
 }
 
 

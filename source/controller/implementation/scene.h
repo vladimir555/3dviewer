@@ -23,10 +23,10 @@ public:
 
     CScene(view::ISettings *settings, view::IViewer *viewer);
     virtual ~CScene() = default;
-
-private:
-    view::ISettings *m_settings;
-    view::IViewer   *m_viewer;
+//
+//private:
+//    view::ISettings *m_settings;
+//    view::IViewer   *m_viewer;
 };
 
 

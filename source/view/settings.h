@@ -2,6 +2,7 @@
 
 
 #include "model/cylinder.h"
+#include "model/scene.h"
 
 #include <QObject>
 

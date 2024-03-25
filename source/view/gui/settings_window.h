@@ -4,7 +4,9 @@
 #include <QMainWindow>
 
 
-#include "model/cylinder.h"
+#include "model/implementation/cylinder.h"
+#include "model/implementation/scene.h"
+
 #include "view/settings.h"
 
 
@@ -12,10 +14,12 @@ namespace view::gui {
 
 
 class ColorWidget: public QWidget {
+    Q_OBJECT
 public:
     explicit ColorWidget(QColor color  = Qt::red, QWidget *parent = nullptr);
 
-    QColor getBackgroundColor() const;
+signals:
+    void onColorChanged(const QColor &color);
 
 private:
     void mousePressEvent(QMouseEvent *event) override;
@@ -44,6 +48,14 @@ signals:
 
 private:
     void closeEvent(QCloseEvent *event) override;
+
+    void onSpinBoxValueChanged(int const &value);
+    void onColorChanged(const QColor &color);
+    void onComboBoxIndexChanged(int const &value);
+
+// models, coule be initialized outside this class
+    model::implementation::CScene::TPtr     m_scene;
+    model::implementation::CCylinder::TPtr  m_cylynder;
 };
 
 
