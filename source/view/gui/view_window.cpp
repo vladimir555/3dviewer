@@ -18,7 +18,7 @@ static int  const DEFAULT_WINDOW_HEIGHT     = 480;
 static char const DEFAULT_WINDOW_TITLE[]    = "3D View";
 
 
-CViewWindow::CViewWindow(controller::IViewer::TPtr const &player) {
+CViewWindow::CViewWindow() {
     resize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     setWindowTitle(tr(DEFAULT_WINDOW_TITLE));
 
@@ -62,6 +62,16 @@ CViewWindow::CViewWindow(controller::IViewer::TPtr const &player) {
         connect(timer, &QTimer::timeout, this, &CViewWindow::onTimerTick);
         timer->start();
     }
+}
+
+
+void CViewWindow::onSceneUpdated(model::IScene::TPtr const &scene) {
+
+}
+
+
+void CViewWindow::onCylinderUpdated(model::ICylinder::TPtr const &cylinder) {
+
 }
 
 

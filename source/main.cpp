@@ -10,22 +10,24 @@
 
 #include <QApplication>
 
-#include "controller/implementation/viewer.h"
+#include "controller/implementation/scene.h"
 #include "view/gui/settings_window.h"
 #include "view/gui/view_window.h"
 
 
-using controller::implementation::CViewer;
 using view::gui::CViewWindow;
 using view::gui::CSettingsWindow;
+using controller::implementation::CScene;
 
 
 int main(int argc, char *argv[]) {
     QApplication    app(argc, argv);
 
-    auto viewer_controller   = CViewer::create();
-    auto view_window         = CViewWindow::create       (viewer_controller);
-    auto settings_window     = CSettingsWindow::create   (viewer_controller);
+    auto settings_window     = CSettingsWindow::create();
+    auto view_window         = CViewWindow::create();
+
+    auto controller          = CScene::create
+        (settings_window.get(), view_window.get());
 
     settings_window->show();
 

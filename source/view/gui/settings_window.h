@@ -4,7 +4,8 @@
 #include <QMainWindow>
 
 
-#include "controller/viewer.h"
+#include "model/cylinder.h"
+#include "view/settings.h"
 
 
 namespace view::gui {
@@ -24,8 +25,9 @@ private:
 };
 
 
-class CSettingsWindow: public QMainWindow {
+class CSettingsWindow: public QMainWindow, public ISettings {
     Q_OBJECT
+    Q_INTERFACES(view::ISettings)
 public:
     typedef QSharedPointer<CSettingsWindow> TPtr;
     template<typename ... TArgs>
@@ -33,13 +35,15 @@ public:
         return TPtr::create(args ...);
     }
     
-    CSettingsWindow(controller::IViewer::TPtr const &editor_controller);
+    CSettingsWindow();
     virtual ~CSettingsWindow() = default;
+
+signals:
+    void onSceneUpdated     (model::IScene::TPtr    const &scene)       override;
+    void onCylinderUpdated  (model::ICylinder::TPtr const &cylinder)    override;
 
 private:
     void closeEvent(QCloseEvent *event) override;
-
-    controller::IViewer::TPtr m_viewer_controller;
 };
 
 

@@ -67,10 +67,7 @@ void ColorWidget::setBackgroundColor(QColor const &color) {
 
 
 
-CSettingsWindow::CSettingsWindow(controller::IViewer::TPtr const &viewer_controller)
-:
-    m_viewer_controller(viewer_controller)
-{
+CSettingsWindow::CSettingsWindow() {
     // window font
     {
         QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
