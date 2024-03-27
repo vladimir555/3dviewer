@@ -17,15 +17,15 @@ public:
     CCylinder();
     virtual ~CCylinder() = default;
 
-    void setVerticesNumber(size_t const &count);
+    void setVerticesNumber(int const &count);
     void setColor(QColor const &color);
 
-    size_t getVerticesNumber() const override;
-    QColor getColor()          const override;
+    int     getVerticesNumber() const override;
+    QColor  getColor()          const override;
 
 private:
-    size_t m_vertices_number = 5;
-    QColor m_color;
+    int     m_vertices_number;
+    QColor  m_color;
 };
 
 

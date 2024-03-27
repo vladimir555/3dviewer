@@ -91,6 +91,8 @@ void CViewWindow::onTimerTick() {
 
 
 void CViewWindow::updateScene() {
+    // todo: define non model const values
+
     auto scene  = new Qt3DCore::QEntity();
     auto entity = new Qt3DCore::QEntity(scene);
     auto mesh   = new Qt3DExtras::QCylinderMesh;
@@ -103,13 +105,13 @@ void CViewWindow::updateScene() {
     if (m_cylinder)
         mesh->setSlices(static_cast<int>(m_cylinder->getVerticesNumber()));
     else
-        mesh->setSlices(5);
+        mesh->setSlices(model::ICylinder::DEFAULT_VERTICES_NUMBER);
 
     auto material = new Qt3DExtras::QPhongMaterial();
     if (m_cylinder)
         material->setDiffuse(m_cylinder->getColor());
     else
-        material->setDiffuse(QColor(QRgb(0xFF0000)));
+        material->setDiffuse(model::ICylinder::DEFAULT_COLOR);
 
     entity->addComponent(mesh);
     entity->addComponent(material);

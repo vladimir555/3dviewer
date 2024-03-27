@@ -102,8 +102,10 @@ CSettingsWindow::CSettingsWindow()
             tree_widget_item->setText(0, tr(DEFAULT_VERTICES_COUNT_FIELD_NAME));
 
             QSpinBox        *spin_box           = new QSpinBox(tree_widget);
-            spin_box->setRange(3, 100); // todo: get from model
-            spin_box->setValue(static_cast<int>(m_cylynder->getVerticesNumber()));
+            spin_box->setRange(
+                model::ICylinder::DEFAULT_VERTICES_NUMBER_MIN,
+                model::ICylinder::DEFAULT_VERTICES_NUMBER_MAX);
+            spin_box->setValue(model::ICylinder::DEFAULT_VERTICES_NUMBER);
 
             tree_widget->setItemWidget(tree_widget_item, 1, spin_box);
 
@@ -114,7 +116,7 @@ CSettingsWindow::CSettingsWindow()
         {
             QTreeWidgetItem *tree_widget_item   = new QTreeWidgetItem(tree_widget);
             tree_widget_item->setText(0, tr(DEFAULT_COLOR_CHOOSING_FIELD_NAME));
-            ColorWidget     *color_widget       = new ColorWidget(m_cylynder->getColor(), tree_widget);
+            ColorWidget     *color_widget       = new ColorWidget(model::ICylinder::DEFAULT_COLOR, tree_widget);
 
             tree_widget->setItemWidget(tree_widget_item, 1, color_widget);
 
