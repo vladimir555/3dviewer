@@ -102,7 +102,7 @@ CSettingsWindow::CSettingsWindow()
             tree_widget_item->setText(0, tr(DEFAULT_VERTICES_COUNT_FIELD_NAME));
 
             QSpinBox        *spin_box           = new QSpinBox(tree_widget);
-            spin_box->setRange(0, 100); // todo: get from model
+            spin_box->setRange(3, 100); // todo: get from model
             spin_box->setValue(static_cast<int>(m_cylynder->getVerticesNumber()));
 
             tree_widget->setItemWidget(tree_widget_item, 1, spin_box);
